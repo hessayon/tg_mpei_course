@@ -1,0 +1,14 @@
+//https://leetcode.com/problems/hamming-distance/
+class Solution {
+public:
+    int hammingDistance(int x, int y) {
+        int difference=x^y; //находим на каких позициях разные биты
+        int count=0;
+        while(difference!=0){ //считаем количество единиц, сдивигая вправо
+            count+=difference&1;
+            difference>>=1;
+        }
+        return count;
+        
+    }
+};
