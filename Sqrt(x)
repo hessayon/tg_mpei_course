@@ -1,0 +1,10 @@
+//https://leetcode.com/problems/sqrtx/
+class Solution {
+public:
+    int mySqrt(int x) {
+        long root=x;
+        while (root*root-x>=1)
+            root=(root+x/root)/2;
+        return root;
+    }
+};
