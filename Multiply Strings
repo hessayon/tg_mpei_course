@@ -1,0 +1,36 @@
+https://leetcode.com/problems/multiply-strings/
+class Solution {
+public:
+       string multiply(string num1, string num2) {
+        if (num1=="0" or num2=="0")
+            return "0";
+        int len1=num1.size();
+        int len2=num2.size();
+        vector<int>result(len1+len2,0);
+        //умножение в столбик без сдвига
+        for(int i=len1-1;i>-1;i--){
+            for (int j=len2-1;j>-1;j--){
+                int curres=(num1[i]-'0')*(num2[j]-'0');
+                result[i+j+1]+=curres;
+            }         
+        }
+        //сдвиг
+        int c=0;//цифра
+        int p=0;//перенос
+        for(int i=len1+len2-1;i>-1;i--){
+            c=(result[i]+p)%10;
+            p=(result[i]+p)/10;
+            result[i]=c;
+        }
+        string output;
+        for (int i=0; i<len1+len2;i++)
+            output+=to_string(result[i]);
+        int i=0;
+        while(output[i]=='0' && i<output.size()-1)
+            i++;
+        output= output.substr(i);
+        return output;
+                
+           
+    }
+};
