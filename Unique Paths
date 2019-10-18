@@ -1,0 +1,17 @@
+https://leetcode.com/problems/unique-paths/
+class Solution {
+public:
+    int uniquePaths(int m, int n) {
+        int _n=max(n,m)+min(n,m)-2;
+        int _k=max(n,m)-1;
+        long numerator=1;
+        long denominator=1;
+        for(int i=_k+1; i<=_n; i++)
+            numerator *=i;
+        for(int i=1; i<=_n-_k; i++) 
+            denominator *=i;
+        return numerator/denominator;
+        
+    }
+    
+};
