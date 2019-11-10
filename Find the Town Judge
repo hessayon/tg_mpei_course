@@ -1,0 +1,17 @@
+https://leetcode.com/problems/find-the-town-judge/
+class Solution {
+public:
+    int findJudge(int N, vector<vector<int>>& trust) {
+        vector<int> whotrust(N+1),whotrusted(N+1);
+        for(auto& item: trust){
+            whotrust[item[0]]++;
+            whotrusted[item[1]]++;
+        }
+        for(int i=1;i<=N;++i){
+            if(whotrusted[i]==N-1 && whotrust[i]==0){
+                return i;
+            }
+        }
+        return -1;
+    }
+};
