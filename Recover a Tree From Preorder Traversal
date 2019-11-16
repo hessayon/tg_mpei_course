@@ -1,0 +1,43 @@
+https://leetcode.com/problems/recover-a-tree-from-preorder-traversal/
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+     TreeNode* recoverFromPreorder(string S) {
+        int num = 0, depth = 0;
+        stack<TreeNode*> tree;
+        TreeNode* root = NULL;
+        for(int i = 0; i <= S.size(); i++){
+            if(i < S.size() && S[i] != '-'){
+                num = num * 10 + (S[i] - '0');
+            }else if(i < S.size() && S[i-1] == '-' && S[i] == '-'){
+                depth++;
+            }else{
+                TreeNode* ptr = new TreeNode(num);
+                num = 0;
+                if(depth == 0){
+                    root = ptr;
+                }else if(tree.size() == depth){
+                    tree.top()->left = ptr;
+                }else{
+                    while(tree.size() > depth){
+                        tree.pop();
+                    }
+                    tree.top()->right = ptr;
+                }
+                tree.push(ptr);
+                depth = 1;
+            }
+        }
+		
+        return root;
+    }
+
+};
