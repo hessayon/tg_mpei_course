@@ -1,0 +1,42 @@
+https://leetcode.com/problems/course-schedule/
+class Solution {
+public:
+  bool canFinish(int numCourses, vector < vector < int>> & prerequisites) {
+    vector<int> colour(numCourses, 0);
+    vector<vector<int> > v(numCourses);
+    for (int i = 0; i < prerequisites.size(); i++)
+    {
+      v[prerequisites[i][0]].push_back(prerequisites[i][1]);
+    }
+    int i = 0;
+    bool iscircles = true;;
+    while (i < v.size() && iscircles)
+    {
+      if (colour[i] == 0)
+        iscircles = iscircle(v, i, colour);
+      i++;
+    }
+    return iscircles;
+  }
+private:
+  bool iscircle(const vector<vector<int> >& graph, int node, vector<int>& colour)
+  {
+    bool iscircles = true;
+    if (colour[node] == 1)
+      iscircles = false;
+    else
+    {
+      if (colour[node] == 0)
+      {
+        colour[node] = 1;
+        int i = 0;
+        while (i < graph[node].size() && iscircles)
+        {
+          iscircles = iscircle(graph, graph[node][i], colour); i++;
+        }
+        colour[node] = 2;
+      }
+    }
+    return iscircles;
+  }
+};
