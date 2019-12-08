@@ -1,4 +1,4 @@
-//https://leetcode.com/problems/rotting-oranges/submissions/
+//https://leetcode.com/problems/rotting-oranges/
 class Solution {
 public:
     bool isSafe(int x, int y, int R, int C)
