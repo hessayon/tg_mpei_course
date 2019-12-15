@@ -1,0 +1,10 @@
+//https://leetcode.com/problems/rectangle-area/
+class Solution {
+public:
+    int computeArea(int A, int B, int C, int D, int E, int F, int G, int H) {
+        if((C<=E && G>E) || (A>=G && E<A)  || (B>=H && D>H) || (F>=D && H>D) )
+            return (C-A)*(D-B)+(G-E)*(H-F);
+        else
+            return (C-A)*(D-B)-(min(C,G)-max(E,A))*(min(D,H)-max(B,F))+(G-E)*(H-F);
+    }
+};
