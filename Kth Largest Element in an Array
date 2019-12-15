@@ -1,14 +1,9 @@
 https://leetcode.com/problems/kth-largest-element-in-an-array/
+
 class Solution {
 public:
     int findKthLargest(vector<int>& nums, int k) {
-        int result=0;
-        sort(nums.rbegin(), nums.rend());
-        for(int i = 0;i<nums.size();i++){
-            if(i+1 == k){
-                result=nums[i];
-            }
-        }
-        return result;
+        sort(nums.begin(), nums.end());
+        return nums[nums.size() - k];;
     }
 };
