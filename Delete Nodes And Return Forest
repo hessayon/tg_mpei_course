@@ -16,7 +16,7 @@ class Solution {
         curr->left = helper(curr->left, to_delete, result);
         curr->right = helper(curr->right, to_delete, result);
         
-        if (std::find(to_delete.begin(), to_delete.end(), curr->val) != to_delete.end()) {
+        if (find(to_delete.begin(), to_delete.end(), curr->val) != to_delete.end()) {
             if (curr->left)
                 result.push_back(curr->left);
             if (curr->right)
