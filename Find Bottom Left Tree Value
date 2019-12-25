@@ -11,36 +11,31 @@
 class Solution {
 public:
     int findBottomLeftValue(TreeNode* root) {
-        int target = root->val;
         queue<TreeNode*> q;
-        
         q.push(root);
-
+        int res = root->val;
         while(!q.empty()) {
             TreeNode* tmp;
-            bool leftmost = false;
-            int width = q.size();
-               
-            for (auto i = 0; i < width; i++) {
+            bool flag = false;
+            int w = q.size();
+            for (auto i = 0; i < w; i++) {
                 tmp = q.front();
                 q.pop();
-                if (tmp->left && not leftmost) {
-                    leftmost = true;
+                if (tmp->left && !flag) {
+                    flag = true;
                     q.push(tmp->left);
-                    target = tmp->left->val;
+                    res = tmp->left->val;
                 } else if (tmp->left)
                     q.push(tmp->left);
-
-                
-                if (tmp->right && not leftmost) {
-                    leftmost = true;
+                if (tmp->right && !flag) {
+                    flag = true;
                     q.push(tmp->right);
-                    target = tmp->right->val;
+                    res = tmp->right->val;
                 } else if (tmp->right)
                     q.push(tmp->right);
 
             }
         }
-        return target;
+        return res;
     }
 };
