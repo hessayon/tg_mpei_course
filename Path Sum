@@ -11,12 +11,12 @@ https://leetcode.com/problems/path-sum/
 class Solution {
 public:
     bool hasPathSum(TreeNode* root, int sum) {
-         if(root == nullptr){
+     if(!root){
         return false;
     }
-    if(root -> left == nullptr && root -> right == nullptr){
-        return sum - root -> val == 0;
+    if(!root->left && !root->right){
+        return sum-root->val == 0;
     }
-    return hasPathSum(root -> left, sum - root -> val) or hasPathSum(root -> right, sum - root -> val);
+    return hasPathSum(root->left, sum-root -> val) or hasPathSum(root->right, sum-root->val);
     }
 };
