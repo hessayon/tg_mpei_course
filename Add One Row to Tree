@@ -10,20 +10,20 @@
  */
 class Solution {
 public:
-    void addOneRowR(TreeNode* root, int v, int d, int cd) {
+    void add(TreeNode* root, int v, int d, int cd) {
         if (!root) return;
         
         if (cd == d) {
-            TreeNode *savLeft = root->left;
-            root->left = new TreeNode(v);
-            root->left->left = savLeft;
-            TreeNode *savRight = root->right;
+            TreeNode *savingleft= root->left;
+            TreeNode *savingright = root->right;
             root->right = new TreeNode(v);
-            root->right->right = savRight;
+            root->right->right = savingright;
+            root->left = new TreeNode(v);
+            root->left->left = savingleft;
             return;
         }
-        addOneRowR(root->left, v, d, cd + 1);
-        addOneRowR(root->right, v, d, cd + 1);
+        add(root->left, v, d, cd + 1);
+        add(root->right, v, d, cd + 1);
     }
     TreeNode* addOneRow(TreeNode* root, int v, int d) {
         if (d == 1) {
@@ -31,7 +31,7 @@ public:
             newRoot->left = root;
             return newRoot;
         }
-        addOneRowR(root, v, d, 2);
+        add(root, v, d, 2);
         return root;
     }
 };
