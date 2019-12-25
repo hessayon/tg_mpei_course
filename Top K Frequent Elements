@@ -1,22 +1,69 @@
 //https://leetcode.com/problems/top-k-frequent-elements/
 class Solution {
 public:
+    struct Node {
+        int val;
+        int freq;
+        Node(int val_, int freq_)
+        : val(val_)
+        , freq(freq_) {}
+    };
+    
     vector<int> topKFrequent(vector<int>& nums, int k) {
-        unordered_map<int, int> dict;
-        for (auto& n : nums)
-            dict[n]++;
-        auto cmp = [&dict](const int a, const int b) {return dict[a] > dict[b];};
-        priority_queue<int, vector<int>, decltype(cmp)> pq(cmp);
-        for (auto it = dict.begin(); it != dict.end(); it++) {
-            pq.push(it->first);
-            if (pq.size() > k) 
-                pq.pop();
+        unordered_map<int,int> m;
+        for (int a : nums) {
+            m[a] += 1;
         }
+        
+        vector<Node> heap;
+        for (auto it = m.begin(); it != m.end(); ++it) {
+            Insert(heap, Node(it->first, it->second));
+        } 
+        
         vector<int> res;
-        while (pq.size() > 0) {
-            res.push_back(pq.top());
-            pq.pop();
+        for (int i = 0; i < k; ++i) {
+            res.push_back(extractMax(heap).val);
         }
         return res;
+        
+    }
+    
+    void siftDown(vector<Node>& heap, size_t i) {
+        while (2 * i + 1 < heap.size()) {
+            size_t left = 2 * i + 1;
+            size_t right = 2 * i + 2;
+            size_t j = left;
+            if (right < heap.size() && heap[right].freq > heap[j].freq) {
+                j = right;
+            }
+            if (heap[i].freq >= heap[j].freq) {
+                break;
+            }
+            swap(heap[i], heap[j]);
+            i = j;
+        }
+    }
+    
+    void SiftUp(vector<Node>& heap, size_t i){
+        size_t par = (i - 1) / 2;
+        while (i > 0 && heap[i].freq > heap[par].freq){
+            swap(heap[i], heap[par]);
+            i = par;
+            par = (i - 1) / 2;
+        }
+        
+    }
+    
+    Node extractMax(vector<Node>& heap) {
+        Node max = heap[0];
+        swap(heap[0], heap[heap.size() - 1]);
+        heap.erase(heap.begin() + heap.size() - 1);
+        siftDown(heap, 0);
+        return max;
+    } 
+    
+    void Insert(vector <Node>& heap, Node x){
+        heap.push_back(x);
+        SiftUp(heap, heap.size() - 1);
     }
 };
