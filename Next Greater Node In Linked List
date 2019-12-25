@@ -10,10 +10,13 @@ https://leetcode.com/problems/next-greater-node-in-linked-list/
 class Solution {
 public:
     vector<int> nextLargerNodes(ListNode* head) {
-        vector<int>result;ListNode* p;int flag;
+        vector<int>result;
+        ListNode* p;
+        int flag;
         while(head)
         {
-            p=head->next;flag=0;
+            p=head->next;
+            flag=0;
             while(p)
             {
                 if(p->val>head->val)
